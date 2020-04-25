@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <!--Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="js/chart-device-data.js" type="text/javascript" charset="utf-8"></script>
+
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
+    <title>Temperature &amp; Humidity Real-time Data</title>
+
+</head>
+
+
+
+<body>
+<h3 class="flexHeader">
+        <span>
+            <span id="deviceCount">0 devices</span>
+            <form>
+                <div class="ui-field-contain">
+                    <label for="select-native-1"> Device name : </label>
+                    <div class="ui-select">
+                        <select name="select-native-1" id="listOfDevices">
+                            <option> Select Device </option>
+                        </select>
+
+                    </div>
+                </div>
+            </form>
+        </span>
+    <span class="center">Temperature & Humidity Real-time Data</span>
+</h3>
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> <span> 현재 온도 </span> </li>
+            <li class="ui-li  ui-listview center"><span id="temperature"> Wait... </span> </li>
+        </ul>
+    </div>
+    <div class="ui-block-b">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> 현재  습도</li>
+            <li class="ui-listview  center" id="humidity"> Wait... </li>
+        </ul>
+    </div>
+</div>
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> <span> 평균 온도 </span> </li>
+            <li class="ui-li  ui-listview center"><span id="avrTemp"> Wait... </span> </li>
+        </ul>
+    </div>
+    <div class="ui-block-b">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  평균 습도 </li>
+            <li class="ui-listview  center" id="avrHumi"> Wait... </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
