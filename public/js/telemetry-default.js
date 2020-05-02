@@ -1,10 +1,13 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
+
+
 $(document).ready(() => {
     // if deployed to a site supporting SSL, use wss://
     const protocol = document.location.protocol.startsWith('https') ? 'wss://' : 'ws://';
     const webSocket = new WebSocket(protocol + location.host);
+
 
     // A class for holding the last N points of telemetry for a device
     class DeviceData {
@@ -16,15 +19,19 @@ $(document).ready(() => {
             this.humidityData = new Array(this.maxLen);
             this.recenttemperature;
             this.recenthumidity;
+            this.illuminance;
+            this.illuminance_digital;
 
         }
 
-        addData(time, temperature, humidity) {
+        addData(time, temperature, humidity, illumi, illumi_digital) {
             this.timeData.push(time);
             this.temperatureData.push(temperature);
             this.humidityData.push(humidity || null);
             this.recenthumidity = humidity;
             this.recenttemperature = temperature;
+            this.illuminance = illumi;
+            this.illuminance_digital = illumi_digital;
 
 
             if (this.timeData.length > this.maxLen) {
@@ -33,6 +40,8 @@ $(document).ready(() => {
                 this.humidityData.shift();
                 this.recenthumidity = humidity;
                 this.recenttemperature = temperature;
+                this.illuminance = illumi;
+                this.illuminance_digital = illumi_digital;
             }
         }
     }
@@ -64,10 +73,9 @@ $(document).ready(() => {
     // update realtime data
     function rtData() {
         const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
-        const rtTemp = device.recenttemperature.toFixed(2);
-        const rtHumi = device.recenthumidity.toFixed(2);
-        console.log(rtTemp);
-        console.log(rtHumi);
+        const rtTemp = device.recenttemperature;
+        const rtHumi = device.recenthumidity;
+
         temperature.innerText = `${rtTemp} 도`;
         humidity.innerText = `${rtHumi} %`;
 
@@ -84,15 +92,18 @@ $(document).ready(() => {
         const avrhumidity = HumiData / device.humidityData.length;
         const avrtemp = avrtemperature.toFixed(2);
         const avrhumi = avrhumidity.toFixed(2);
-        console.log(device.temperatureData);
-        console.log(device.temperatureData.length);
-        console.log(TempData);
-        console.log(HumiData);
-        console.log(avrtemp);
-        console.log(avrhumi);
+
         avrTemp.innerText = avrtemp === 'NaN' ? `Wait...` : `${avrtemp} 도`;
         avrHumi.innerText = avrhumi === 'NaN' ? `Wait...` : `${avrhumi} %`;
 
+    }
+    function illumifunc() {
+        const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
+        const illumi_data = device.illuminance;
+        const illumi_digital_data = device.illuminance_digital;
+        console.log(illumi_digital_data);
+        illumi_box.innerText = `${illumi_data}`;
+        illumi_digital_box.innerText = illumi_digital_data === 1 ? `밝음` : `어두움`;
     }
 
     // Manage a list of devices in the UI, and update which device data the chart is showing
@@ -105,6 +116,9 @@ $(document).ready(() => {
     const humidity = document.getElementById('humidity');
     const avrTemp = document.getElementById('avrTemp');
     const avrHumi = document.getElementById('avrHumi');
+    const illumi_box = document.getElementById('illumi');
+    const illumi_digital_box = document.getElementById('illumi_digital');
+    const button_1 = document.getElementById("btn1");
     function OnSelectionChange() {
         const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
         console.log(device);
@@ -112,6 +126,16 @@ $(document).ready(() => {
 
     }
     listOfDevices.addEventListener('change', OnSelectionChange, false);
+    //button_1.addEventListener('click', SendExample, false);
+
+    // function SendExample() {
+    //    const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
+    //    Message = "hello";
+    //    send(device, Message);
+    // }
+
+
+
 
     // When a web socket message arrives:
     // 1. Unpack it
@@ -124,6 +148,18 @@ $(document).ready(() => {
             const messageData = JSON.parse(message.data);
             console.log(messageData);
 
+            tmp = String.fromCharCode.apply(null, messageData.IotData.data);
+            messageData.IotData.detail = tmp.split('&');
+            messageData.IotData.temperature = messageData.IotData.detail[0];
+            messageData.IotData.humidity = messageData.IotData.detail[1];
+            messageData.IotData.illumi = messageData.IotData.detail[2];
+            messageData.IotData.illumi_digital = messageData.IotData.detail[3];
+            messageData.IotData.temperature *= 1;
+            messageData.IotData.humidity *= 1;
+            messageData.IotData.illumi *= 1;
+            messageData.IotData.illumi_digital *= 1
+
+
             // time and either temperature or humidity are required
             if (!messageData.MessageDate || (!messageData.IotData.temperature && !messageData.IotData.humidity)) {
                 return;
@@ -133,14 +169,14 @@ $(document).ready(() => {
             const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
 
             if (existingDeviceData) {
-                existingDeviceData.addData(messageData.MessageDate, messageData.IotData.temperature, messageData.IotData.humidity);
+                existingDeviceData.addData(messageData.MessageDate, messageData.IotData.temperature, messageData.IotData.humidity, messageData.IotData.illumi, messageData.IotData.illumi_digital);
 
             } else {
                 const newDeviceData = new DeviceData(messageData.DeviceId);
                 trackedDevices.devices.push(newDeviceData);
                 const numDevices = trackedDevices.getDevicesCount();
                 deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
-                newDeviceData.addData(messageData.MessageDate, messageData.IotData.temperature, messageData.IotData.humidity);
+                newDeviceData.addData(messageData.MessageDate, messageData.IotData.temperature, messageData.IotData.humidity, messageData.IotData.illumi, messageData.IotData.illumi_digital);
 
                 // add device to the UI list
                 const node = document.createElement('option');
@@ -158,6 +194,8 @@ $(document).ready(() => {
             }
             rtData();
             avrData();
+            illumifunc();
+
         } catch (err) {
             console.error(err);
         }
