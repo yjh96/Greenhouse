@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="03fbfe68-3e7e-436a-b7aa-6d78e7a06a65" name="MQTT" url="http://waws-prod-se1-005.ftp.azurewebsites.windows.net/">
+        <fileTransfer rootFolder="/site/wwwroot" accessType="FTPS" host="waws-prod-se1-005.ftp.azurewebsites.windows.net" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

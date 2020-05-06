@@ -11,12 +11,11 @@ function C2D_MESSAGE(DeviceID,Message){
 }
 
 function C2D_MESSAGE_TEST(){
-    var a = 'Test';
+    var a = 'Arduino';
     var b = 'Hello';
     serviceClient.send(a,b)
 }
 
-//const button1 = document.getElementById('btn1');
-//button1.addEventListener('click',C2D_MESSAGE_TEST,false);
 C2D_MESSAGE_TEST();
+
 

@@ -157,7 +157,7 @@ $(document).ready(() => {
             messageData.IotData.temperature *= 1;
             messageData.IotData.humidity *= 1;
             messageData.IotData.illumi *= 1;
-            messageData.IotData.illumi_digital *= 1
+            messageData.IotData.illumi_digital *= 1;
 
 
             // time and either temperature or humidity are required
