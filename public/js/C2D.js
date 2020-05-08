@@ -1,5 +1,5 @@
-const Client = require('azure-iothub').Client;
-const Message = require('azure-iot-common').Message;
+const Client = require('azure-iothub');
+const Message = require('azure-iot-common');
 var connectionString = 'HostName=Study-Capstone.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=Rtm3S640ptD51yF+zgHuENlEpyLzICZMZoKuQhXLYls=';
 var serviceClient = Client.fromConnectionString(connectionString);
 
