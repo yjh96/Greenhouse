@@ -73461,10 +73461,10 @@ function v4(options, buf, offset) {
 module.exports = v4;
 
 },{"./lib/bytesToUuid":279,"./lib/rng":280}],283:[function(require,module,exports){
-const Client = require('azure-iothub');
-const Message = require('azure-iot-common');
+const iothub = require('azure-iothub');
+const iotcommon = require('azure-iot-common');
 var connectionString = 'HostName=Study-Capstone.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=Rtm3S640ptD51yF+zgHuENlEpyLzICZMZoKuQhXLYls=';
-var serviceClient = Client.fromConnectionString(connectionString);
+var serviceClient = iothub.Client.fromConnectionString(connectionString);
 
 function C2D_MESSAGE(DeviceID,Message){
     var message = Message;

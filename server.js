@@ -3,6 +3,7 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const EventHubReader = require('./scripts/event-hub-reader.js');
+const SendMessage = require('./public/js/C2D.js');
 
 const iotHubConnectionString = process.env.IotHubConnectionString;
 if (!iotHubConnectionString) {
@@ -46,7 +47,9 @@ server.listen(process.env.PORT || '3000', () => {
     console.log('Listening on %d.', server.address().port);
 });
 
-const eventHubReader = new EventHubReader(iotHubConnectionString, eventHubConsumerGroup);
+    const eventHubReader = new EventHubReader(iotHubConnectionString, eventHubConsumerGroup);
+
+SendMessage.C2D_MESSAGE_TEST();
 
 (async () => {
     await eventHubReader.startReadMessage((message, date, deviceId) => {
