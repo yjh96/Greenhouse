@@ -8,5 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="jQuery" level="application" />
+    <orderEntry type="library" name="jQuery Mobile" level="application" />
+    <orderEntry type="library" name="@types/express" level="application" />
   </component>
 </module>

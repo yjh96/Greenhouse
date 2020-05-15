@@ -3,6 +3,7 @@
 /* eslint-disable no-undef */
 
 
+
 $(document).ready(() => {
     // if deployed to a site supporting SSL, use wss://
     const protocol = document.location.protocol.startsWith('https') ? 'wss://' : 'ws://';
@@ -118,7 +119,7 @@ $(document).ready(() => {
     const avrHumi = document.getElementById('avrHumi');
     const illumi_box = document.getElementById('illumi');
     const illumi_digital_box = document.getElementById('illumi_digital');
-    const button_1 = document.getElementById("btn1");
+    const button_1 = document.getElementById("button1");
     function OnSelectionChange() {
         const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
         console.log(device);
@@ -126,7 +127,7 @@ $(document).ready(() => {
 
     }
     listOfDevices.addEventListener('change', OnSelectionChange, false);
-    //button_1.addEventListener('click', SendExample, false);
+    button_1.addEventListener('click', Button , false);
 
     // function SendExample() {
     //    const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
@@ -134,7 +135,14 @@ $(document).ready(() => {
     //    send(device, Message);
     // }
 
-
+    function Button() {
+        $.ajax({
+            url: "/send",
+            type : 'GET',
+            success : function() { console.log("GET SUCCESS")}
+        });
+        console.log("hi");
+    }
 
 
     // When a web socket message arrives:

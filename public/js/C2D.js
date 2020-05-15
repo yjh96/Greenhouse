@@ -1,3 +1,5 @@
+'use strict';
+
 const Client = require('azure-iothub').Client;
 
 const Message = require('azure-iot-common').Message;
@@ -6,13 +8,13 @@ var connectionString = 'HostName=Study-Capstone.azure-devices.net;SharedAccessKe
 var serviceClient = Client.fromConnectionString(connectionString);
 
 function C2D_MESSAGE(DeviceID, Message) {
-    var message = Message;
-    var deviceId = DeviceID;
+    var message = "hello"
+    var deviceId = "Arduino"
     serviceClient.send(deviceId, message);
 }
 
 function C2D_MESSAGE_TEST() {
-    var a = 'Arduino';
+    var a = 'Test';
     var b = 'Hello';
     serviceClient.send(a, b);
 }

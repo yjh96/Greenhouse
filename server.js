@@ -22,13 +22,16 @@ console.log(`Using event hub consumer group [${eventHubConsumerGroup}]`);
 
 // Redirect requests to the public subdirectory to the root
 const app = express();
-app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res /* , next */) => {
-    res.redirect('/');
+
+app.get('/send', function(){
+    console.log("HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+    SendMessage.C2D_MESSAGE_TEST();
 });
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 wss.broadcast = (data) => {
     wss.clients.forEach((client) => {
@@ -42,16 +45,16 @@ wss.broadcast = (data) => {
         }
     });
 };
-
 server.listen(process.env.PORT || '3000', () => {
     console.log('Listening on %d.', server.address().port);
 });
 
     const eventHubReader = new EventHubReader(iotHubConnectionString, eventHubConsumerGroup);
-
-SendMessage.C2D_MESSAGE_TEST();
-
 (async () => {
+    app.get('./send/', function(req,res) {
+        SendMessage.C2D_MESSAGE_TEST();
+        console.log("HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+    });
     await eventHubReader.startReadMessage((message, date, deviceId) => {
         try {
             const payload = {
