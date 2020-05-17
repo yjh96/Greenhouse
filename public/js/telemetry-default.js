@@ -129,19 +129,12 @@ $(document).ready(() => {
     listOfDevices.addEventListener('change', OnSelectionChange, false);
     button_1.addEventListener('click', Button , false);
 
-    // function SendExample() {
-    //    const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
-    //    Message = "hello";
-    //    send(device, Message);
-    // }
-
     function Button() {
         $.ajax({
             url: "/send",
-            type : 'GET',
-            success : function() { console.log("GET SUCCESS")}
+            type : 'GET'
         });
-        console.log("hi");
+        console.log("send GET to ajax");
     }
 
 
