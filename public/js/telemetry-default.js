@@ -119,24 +119,61 @@ $(document).ready(() => {
     const avrHumi = document.getElementById('avrHumi');
     const illumi_box = document.getElementById('illumi');
     const illumi_digital_box = document.getElementById('illumi_digital');
-    const button_1 = document.getElementById("button1");
+    const button_temp = document.getElementById("button1");
+    const control_temp = document.getElementById("tempbox");
+    const control_led_on = document.getElementById("led-on");
+    const control_led_off = document.getElementById("led-off");
+
     function OnSelectionChange() {
         const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
         console.log(device);
-
-
     }
-    listOfDevices.addEventListener('change', OnSelectionChange, false);
-    button_1.addEventListener('click', Button , false);
 
-    function Button() {
+    listOfDevices.addEventListener('change', OnSelectionChange, false);
+
+    control_temp.addEventListener('keyup',function(){
+        var tmp = $(this).val();
+        console.log(tmp);
+
+        this.value = tmp;
+
+    })
+
+    button_temp.addEventListener('click', Buttontemp , false);
+    function Buttontemp() {
         $.ajax({
             url: "/send",
-            type : 'GET'
+            type : 'POST',
+            data : { "temp" :  control_temp.value },
+            success : function(req,res) {
+                console.log("Success POST to Server");
+            }
         });
-        console.log("send GET to ajax");
+        console.log("send POST via ajax");
+        console.log(control_temp.value); // value 가져오기
     }
 
+    control_led_on.addEventListener('click',LED_ON_REMOTE, false);
+    function LED_ON_REMOTE() {
+        $.ajax({
+            url : "/ledon",
+            type : 'POST',
+            success : function(req,res) {
+                console.log("Success Post to server >>LED ON<<");
+            }
+        });
+    }
+
+    control_led_off.addEventListener('click',LED_OFF_REMOTE, false);
+    function LED_OFF_REMOTE() {
+        $.ajax({
+            url: "/ledoff",
+            type : 'POST',
+            success : function(req,res) {
+                console.log("Success Post to server >>LED OFF<<");
+            }
+        });
+    }
 
     // When a web socket message arrives:
     // 1. Unpack it

@@ -3,6 +3,7 @@ const http = require('http');
 const WebSocket = require('ws');
 const path = require('path');
 const EventHubReader = require('./scripts/event-hub-reader.js');
+const bodyParser = require('body-parser');
 const SendMessage = require('./public/js/C2D.js');
 
 const iotHubConnectionString = process.env.IotHubConnectionString;
@@ -24,10 +25,27 @@ console.log(`Using event hub consumer group [${eventHubConsumerGroup}]`);
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-app.get('/send', function(){
-    console.log("catch GET from client!");
+app.post('/send', function(req,res){
+    console.log("catch POST from client!");
+    var temp = req.body.temp;
+    console.log(temp);
     SendMessage.C2D_MESSAGE_TEST();
+    res.json({ok:true});
+});
+
+app.post('/ledon', function(req,res){
+    console.log("catch POST from Client -> LED ON");
+    SendMessage.C2D_MESSAGE_TEST();
+    res.json({ok:true});
+});
+
+app.post('/ledoff', function(req,res){
+    console.log("catch POST from Client -> LED OFF");
+    SendMessage.C2D_MESSAGE_TEST();
+    res.json({ok:true});
 });
 
 const server = http.createServer(app);
