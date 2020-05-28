@@ -60,14 +60,15 @@ static IOTHUBMESSAGE_DISPOSITION_RESULT receive_message_callback(IOTHUB_MESSAGE_
     {
         //  LogInfo("Received Message [%d]\r\n Message ID: %s\r\n Data: <<<%s>>>  & Size=%d\r\n", *counter, messageId,  buffer, (int)size);
         // If we receive the work 'quit' then we stop running
-        //if (size == (strlen("LED_ON") * sizeof(char)) && memcmp(buffer, "LED_ON", size) == 0){
-        //    LogInfo("LED_ON\n");
-        //}
-        //else if (size == (strlen("LED_OFF") * sizeof(char)) && memcmp(buffer, "LED_OFF", size) == 0){
-        //    LogInfo("LED_OFF\n");
-        //}
-        LogInfo(buffer + "\n");
-        
+        if (size == (strlen("LED_ON") * sizeof(char)) && memcmp(buffer, "LED_ON", size) == 0){
+            LogInfo("LED_ON\n");
+        }
+        else if (size == (strlen("LED_OFF") * sizeof(char)) && memcmp(buffer, "LED_OFF", size) == 0){
+            LogInfo("LED_OFF\n");
+        }
+        else if (size == (strlen("LED_AUTO") * sizeof(char)) && memcmp(buffer, "LED_AUTO", size) == 0){
+            LogInfo("LED_AUTO\n");
+        }
     }
     (*counter)++;
     return IOTHUBMESSAGE_ACCEPTED;
