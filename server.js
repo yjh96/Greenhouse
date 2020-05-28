@@ -30,21 +30,22 @@ app.use(bodyParser.json());
 
 app.post('/send', function(req,res){
     console.log("catch POST from client!");
-    var temp = req.body.temp;
-    console.log(temp);
-    SendMessage.C2D_MESSAGE_TEST();
+    var target_command = req.body.command;
+    var target_device = req.body.device;
+    console.log(command);
+    SendMessage.C2D_MESSAGE(target_device,target_command);
     res.json({ok:true});
 });
 
 app.post('/ledon', function(req,res){
     console.log("catch POST from Client -> LED ON");
-    SendMessage.C2D_MESSAGE_TEST();
+    SendMessage.C2D_MESSAGE("Arduino", "LED_ON");
     res.json({ok:true});
 });
 
 app.post('/ledoff', function(req,res){
     console.log("catch POST from Client -> LED OFF");
-    SendMessage.C2D_MESSAGE_TEST();
+    SendMessage.C2D_MESSAGE("Arduino","LED_OFF");
     res.json({ok:true});
 });
 

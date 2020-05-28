@@ -134,19 +134,17 @@ $(document).ready(() => {
     control_temp.addEventListener('keyup',function(){
         var tmp = $(this).val();
         console.log(tmp);
-
         this.value = tmp;
-
     })
 
     button_temp.addEventListener('click', Buttontemp , false);
     function Buttontemp() {
         $.ajax({
-            url: "/send",
+            url: "/temp_update",
             type : 'POST',
-            data : { "temp" :  control_temp.value },
+            data : { "device": listOfDevices[listOfDevices.selectedIndex].text , "command" :  control_temp.value + "^" },
             success : function(req,res) {
-                console.log("Success POST to Server");
+                console.log("Success POST to Server >>temp : %s <<",control_temp.value);
             }
         });
         console.log("send POST via ajax");
@@ -158,6 +156,7 @@ $(document).ready(() => {
         $.ajax({
             url : "/ledon",
             type : 'POST',
+            //data : { "device": listOfDevices[listOfDevices.selectedIndex].text , "command" :  "LED_ON^" },
             success : function(req,res) {
                 console.log("Success Post to server >>LED ON<<");
             }
@@ -169,6 +168,7 @@ $(document).ready(() => {
         $.ajax({
             url: "/ledoff",
             type : 'POST',
+            //data : { "device": listOfDevices[listOfDevices.selectedIndex].text , "command" :  "LED_OFF^" },
             success : function(req,res) {
                 console.log("Success Post to server >>LED OFF<<");
             }
