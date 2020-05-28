@@ -32,7 +32,6 @@ String humidity_str;
 char humidity_char [256];
 
 
-
 IOTHUB_CLIENT_TRANSPORT_PROVIDER protocol = MQTT_Protocol;
 
 IOTHUB_DEVICE_CLIENT_LL_HANDLE device_ll_handle;
@@ -55,16 +54,20 @@ static IOTHUBMESSAGE_DISPOSITION_RESULT receive_message_callback(IOTHUB_MESSAGE_
 
     if (IoTHubMessage_GetByteArray (message, (const unsigned char**) &buffer, &size) != IOTHUB_MESSAGE_OK)
     {
-        LogInfo("unable to retrieve the message data\r\n");
+        //LogInfo("unable to retrieve the message data\r\n");
     }
     else
     {
-        LogInfo("Received Message [%d]\r\n Message ID: %s\r\n Data: <<<%s>>>  & Size=%d\r\n", *counter, messageId,  buffer, (int)size);
+        //  LogInfo("Received Message [%d]\r\n Message ID: %s\r\n Data: <<<%s>>>  & Size=%d\r\n", *counter, messageId,  buffer, (int)size);
         // If we receive the work 'quit' then we stop running
-        if (size == (strlen("quit") * sizeof(char)) && memcmp(buffer, "quit", size) == 0)
-        {
-            Serial.write(buffer);
-        }
+        //if (size == (strlen("LED_ON") * sizeof(char)) && memcmp(buffer, "LED_ON", size) == 0){
+        //    LogInfo("LED_ON\n");
+        //}
+        //else if (size == (strlen("LED_OFF") * sizeof(char)) && memcmp(buffer, "LED_OFF", size) == 0){
+        //    LogInfo("LED_OFF\n");
+        //}
+        LogInfo(buffer + "\n");
+        
     }
     (*counter)++;
     return IOTHUBMESSAGE_ACCEPTED;
@@ -74,8 +77,8 @@ static void send_confirm_callback(IOTHUB_CLIENT_CONFIRMATION_RESULT result, void
 {
     (void)userContextCallback;
     g_message_count_send_confirmations++;
-    LogInfo("Confirm Callback");
-    LogInfo("Confirmation callback received for message %lu with result %s\r\n", (unsigned long)g_message_count_send_confirmations, MU_ENUM_TO_STRING(IOTHUB_CLIENT_CONFIRMATION_RESULT, result));
+    //LogInfo("Confirm Callback");
+    //LogInfo("Confirmation callback received for message %lu with result %s\r\n", (unsigned long)g_message_count_send_confirmations, MU_ENUM_TO_STRING(IOTHUB_CLIENT_CONFIRMATION_RESULT, result));
 }
 
 static void connection_status_callbakc(IOTHUB_CLIENT_CONNECTION_STATUS result, IOTHUB_CLIENT_CONNECTION_STATUS_REASON reason, void* user_context)
@@ -84,11 +87,11 @@ static void connection_status_callbakc(IOTHUB_CLIENT_CONNECTION_STATUS result, I
     (void)user_context;
     if (result == IOTHUB_CLIENT_CONNECTION_AUTHENTICATED)
     {
-        LogInfo("The device client is connected to iothub\r\n");
+        //LogInfo("The device client is connected to iothub\r\n");
     }
     else
     {
-        LogInfo("The device client has been disconnected\r\n");
+        //LogInfo("The device client has been disconnected\r\n");
     }
 }
 
@@ -104,10 +107,10 @@ void setup(){
     device_ll_handle = IoTHubDeviceClient_LL_CreateFromConnectionString(connectionString, protocol);
     (void)IoTHub_Init();
 
-    LogInfo("Creating IoTHub Device handle\r\n");
+    //LogInfo("Creating IoTHub Device handle\r\n");
     if (device_ll_handle == NULL)
     {
-        LogInfo("Error AZ002: Failure createing Iothub device. Hint: Check you connection string.\r\n");
+        //LogInfo("Error AZ002: Failure createing Iothub device. Hint: Check you connection string.\r\n");
     }
     else {
         // Set any option that are neccessary.
@@ -123,20 +126,20 @@ void setup(){
         IoTHubDeviceClient_LL_SetOption(device_ll_handle, OPTION_AUTO_URL_ENCODE_DECODE, &urlEncodeOn);
         /* Setting Message call back, so we can receive Commands. */
         if (IoTHubClient_LL_SetMessageCallback(device_ll_handle, receive_message_callback, &receiveContext) != IOTHUB_CLIENT_OK) {
-            LogInfo("ERROR: IoTHubClient_LL_SetMessageCallback..........FAILED!\r\n");
+            //LogInfo("ERROR: IoTHubClient_LL_SetMessageCallback..........FAILED!\r\n");
         }
         do {
             if (message_sent < MessageCount ) {
                 humidity_str = Serial.readStringUntil('\n');
-                Serial.println(humidity_str);
+                //Serial.println(humidity_str);
                 humidity_str.toCharArray(humidity_char,256);
-                Serial.println(humidity_char);
+                //Serial.println(humidity_char);
                 message_handle = IoTHubMessage_CreateFromString(humidity_char);
-                LogInfo("Sending message %d to IoTHub\r\n", (int)(message_sent + 1));
+                //LogInfo("Sending message %d to IoTHub\r\n", (int)(message_sent + 1));
                 result = IoTHubDeviceClient_LL_SendEventAsync(device_ll_handle, message_handle, send_confirm_callback, NULL);
                 // The message is copied to the sdk so the we can destroy it
                 IoTHubMessage_Destroy(message_handle);
-                
+                //Serial.write("hello");
                 message_sent++;
                 delay(3000);
             }
@@ -156,7 +159,7 @@ void setup(){
     // Free all the sdk subsystem
     IoTHub_Deinit();
 
-    LogInfo("done with sending");
+    //LogInfo("done with sending");
     return;
 }
 
