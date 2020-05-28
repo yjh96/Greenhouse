@@ -32,7 +32,25 @@ void loop() {
     signed int cds_digital;
     char cds_analog_tmp[16];
     char cds_digital_tmp[16];
-    
+
+    if(LED_AUTO == 1){
+        if(digitalRead(CDSDIGITAL) == HIGH){
+            digitalWrite(LED_RELAY,LOW);
+        }
+        else if (digitalRead(CDSDIGITAL)==LOW){
+            digitalWrite(LED_RELAY,HIGH);
+        }
+    }
+
+    else if (LED_AUTO == 0 ){
+        if(LED_FORCE == 1){
+            digitalWrite(LED_RELAY,LOW);
+        }
+        else if (LED_FORCE == 0){
+            digitalWrite(LED_RELAY,HIGH);
+        }
+    }
+    /**
     if(digitalRead(CDSDIGITAL) == HIGH ){ //어두움
         cds_digital = 0;
         if(LED_FORCE == 0 && LED_AUTO == 1){
@@ -51,6 +69,7 @@ void loop() {
         digitalWrite(LED_RELAY,HIGH);
         }
     }
+    **/
 
     float h = dht.readHumidity();
     char hh_tmp[16];
@@ -61,18 +80,30 @@ void loop() {
     if(Serial3.available()){
       String text = Serial3.readStringUntil('\n');
       Serial.println(text);
-      if(text == "LED_ON"){
+      if(text == "LED_ON" ) {
           LED_FORCE = 1;
           LED_AUTO = 0;
+          Serial.print("FORCE : ");
+          Serial.print(LED_FORCE);
+          Serial.print(" AUTO : ");
+          Serial.println(LED_AUTO);
+
       }
-      else if (text == "LED_OFF"){
-        LED_FORCE = 0;
-        LED_AUTO = 0;
+      else if (text == "LED_OFF" ) {
+          LED_FORCE = 0;
+          LED_AUTO = 0;
+          Serial.print("FORCE : ");
+          Serial.print(LED_FORCE);
+          Serial.print(" AUTO : ");
+          Serial.println(LED_AUTO);
       }
-      else if ( text == "LED_AUTO"){
+      else if ( text == "LED_AUTO" ) {
           LED_AUTO = 1;
           LED_FORCE = 0;
-
+          Serial.print("FORCE : ");
+          Serial.print(LED_FORCE);
+          Serial.print(" AUTO : ");
+          Serial.println(LED_AUTO);
       }
     }
 
