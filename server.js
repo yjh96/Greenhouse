@@ -28,7 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.post('/send', function(req,res){
+//post 수신 시 일괄 검출. URL 통일 시 간결화 가능. ex> /func로 한번에 수신한다던지...
+app.post('/temp_set', function(req,res){
     console.log("catch POST from client!");
     var target_command = req.body.command;
     var target_device = req.body.device;
@@ -37,15 +38,44 @@ app.post('/send', function(req,res){
     res.json({ok:true});
 });
 
-app.post('/ledon', function(req,res){
+app.post('/led_on', function(req,res){
     console.log("catch POST from Client -> LED ON");
-    SendMessage.C2D_MESSAGE("Arduino", "LED_ON");
+    var target_device = req.body.device;
+    SendMessage.C2D_MESSAGE(target_device, "LED_ON");
     res.json({ok:true});
 });
 
-app.post('/ledoff', function(req,res){
+app.post('/led_off', function(req,res){
     console.log("catch POST from Client -> LED OFF");
-    SendMessage.C2D_MESSAGE("Arduino","LED_OFF");
+    var target_device = req.body.device;
+    SendMessage.C2D_MESSAGE(target_device,"LED_OFF");
+    res.json({ok:true});
+});
+
+app.post('/led_auto',function(req,res){
+    console.log("POST Client -> LED AUTO");
+    var target_device = req.body.device;
+    SendMessage.C2D_MESSAGE(target_device,"LED_AUTO");
+    res.json({ok:true});
+});
+app.post('/fan_on', function(req,res){
+    console.log("catch POST from Client -> FAN ON");
+    var target_device = req.body.device;
+    SendMessage.C2D_MESSAGE(target_device, "FAN_ON");
+    res.json({ok:true});
+});
+
+app.post('/fan_off', function(req,res){
+    console.log("catch POST from Client -> FAN OFF");
+    var target_device = req.body.device;
+    SendMessage.C2D_MESSAGE(target_device,"FAN_OFF");
+    res.json({ok:true});
+});
+
+app.post('/fan_auto',function(req,res){
+    console.log("POST Client -> FAN AUTO");
+    var target_device = req.body.device;
+    SendMessage.C2D_MESSAGE(target_device,"FAN_AUTO");
     res.json({ok:true});
 });
 
