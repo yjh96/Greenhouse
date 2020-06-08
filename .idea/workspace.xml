@@ -23,14 +23,11 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca656e01-7444-471d-a124-5441c91aaf07" name="기본 변경 목록" comment="C2D message function">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/capstone-esp8266.ino" beforeDir="false" afterPath="$PROJECT_DIR$/capstone-esp8266.ino" afterDir="false" />
-    </list>
+    <list default="true" id="ca656e01-7444-471d-a124-5441c91aaf07" name="기본 변경 목록" comment="최종 제출&#10;&#10;최종 제출" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,8 +50,9 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DHTtester" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -72,7 +70,15 @@
       <workItem from="1590465790921" duration="2722000" />
       <workItem from="1590482494312" duration="116000" />
       <workItem from="1590564319779" duration="676000" />
-      <workItem from="1590647105321" duration="2673000" />
+      <workItem from="1590647105321" duration="4773000" />
+      <workItem from="1590723751767" duration="1233000" />
+      <workItem from="1590979636939" duration="1034000" />
+      <workItem from="1591588028656" duration="1921000" />
+      <workItem from="1592559869799" duration="208000" />
+      <workItem from="1592741662317" duration="1389000" />
+      <workItem from="1594091354792" duration="3985000" />
+      <workItem from="1595418962057" duration="2000" />
+      <workItem from="1609252116135" duration="24000" />
     </task>
     <task id="LOCAL-00001" summary="C2D message function">
       <created>1590653455265</created>
@@ -81,11 +87,25 @@
       <option name="project" value="LOCAL" />
       <updated>1590653455265</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Buffer 쓰레기 해결 필요">
+      <created>1590655723037</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1590655723037</updated>
+    </task>
+    <task id="LOCAL-00003" summary="다수 기능 추가">
+      <created>1591588094379</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1591588094379</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -101,17 +121,19 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="C2D message function" />
-    <option name="LAST_COMMIT_MESSAGE" value="C2D message function" />
+    <MESSAGE value="Buffer 쓰레기 해결 필요" />
+    <MESSAGE value="다수 기능 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="다수 기능 추가" />
   </component>
   <component name="WindowStateProjectService">
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1589259870181">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589259870181" />
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1590653470237">
+    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1591588103351">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590653470237" />
+    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1591588103351" />
     <state x="518" y="268" key="circlet.vcs.share.CircletCreateProjectDialog" timestamp="1589259675033">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
