@@ -174,11 +174,6 @@ $(document).ready(() => {
     const control_fan_off = document.getElementById("fan-off");
     const control_fan_auto = document.getElementById("fan-auto");
 
-    // LED 컨트롤 - 라디오 버튼
-    const control_led_auto_radio = document.getElementById("led-auto-radio-btn");
-    const control_led_on_radio = document.getElementById("led-on-radio-btn");
-    const control_led_off_radio = document.getElementById("led-off-radio-btn");
-
     function OnSelectionChange() {
         const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
         console.log(device);
@@ -201,7 +196,7 @@ $(document).ready(() => {
             url: "/temp_set",
             type : 'POST',
             //list에서 선택한 device의 text를 포함, textinput의 온도값을 포함해 전송하도록 함.
-            data : { "device": listOfDevices[listOfDevices.selectedIndex].text , "command" :  control_temp.value + "^" },
+            data : { "device": listOfDevices[listOfDevices.selectedIndex].text , "command" : "T&"+ control_temp.value},
             success : function(req,res) {  //SERVER REQ OK > 콘솔에서 확인이 가능하도록 조치
                 console.log("Success POST to Server >>temp : %s <<",control_temp.value);
             }
@@ -284,20 +279,6 @@ $(document).ready(() => {
             }
         });
     }
-    //AJAX 테스트용 코드 _ radio버튼으로 led 제어 관련 url 통일
-
-    control_led_auto_radio.click(LED_RADIO(control_led_auto_radio));
-
-    function LED_RADIO (DOM) {
-        //    $.ajax({
-        //        url : "/led_control"
-        //        type : 'POST',
-        //        data : { "device" : listOfDevices[listOfDevices.selectedIndex].text , "command" : $(this).value },
-        console.log($(DOM).value);
-        console.log("clicked");
-    }
-    //    })
-
 
     // When a web socket message arrives:
     // 1. Unpack it
@@ -354,7 +335,7 @@ $(document).ready(() => {
                 const newDeviceData = new DeviceData(messageData.DeviceId);
                 trackedDevices.devices.push(newDeviceData);
                 const numDevices = trackedDevices.getDevicesCount();
-                deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
+                deviceCount.innerText = numDevices === 1 ? `가동중인 스마트 온실 : ${numDevices} 개` : `가동중인 스마트 온실 : ${numDevices} 개`;
                 newDeviceData.addData(
                     messageData.MessageDate,
                     messageData.IotData.temperature,

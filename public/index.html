@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/themes/greenhouse.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="js/telemetry-default.js" type="text/javascript" charset="utf-8"></script>
     <style>
@@ -13,7 +15,7 @@
             text-align: center;
         }
     </style>
-    <title>Temperature &amp; Humidity Real-time Data</title>
+    <title>스마트 온실 실시간 데이터 현황</title>
 
 </head>
 
@@ -21,24 +23,24 @@
 <body>
 <h3 class="flexHeader">
         <span>
-            <span id="deviceCount">0 devices</span>
+            <span id="deviceCount">가동중인 스마트 온실 : 0개</span>
             <form>
                 <div class="ui-field-contain">
-                    <label for="select-native-1"> Device name : </label>
+                    <label for="select-native-1"> 온실명 : </label>
                     <div class="ui-select">
                         <select name="select-native-1" id="listOfDevices">
-                            <option> Select Device </option>
+                            <option> 온실 선택 </option>
                         </select>
                     </div>
                 </div>
             </form>
         </span>
-    <span class="center">Temperature & Humidity Real-time Data</span>
+    <span class="center">스마트 온실 실시간 데이터 현황</span>
 </h3>
-<div class="ui-grid-a">
+<div class="ui-grid-b">
     <div class="ui-block-a">
-        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> <span> 현재 온도 </span> </li>
+        <ul data-role="listview" data-inset="true" data-divider-theme="b" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child " data-theme="a"> <span> 현재 온도 </span> </li>
             <li class="ui-li  ui-listview center"><span id="temperature"> Wait... </span> </li>
         </ul>
     </div>
@@ -48,8 +50,12 @@
             <li class="ui-listview  center" id="humidity"> Wait... </li>
         </ul>
     </div>
-</div>
-<div class="ui-grid-a">
+    <div class="ui-block-c">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center" > <span> 현재 조도  [ Lux ] </span> </li>
+            <li class="ui-li  ui-listview center"><span id="illumi"> Wait... </span> </li>
+        </ul>
+    </div>
     <div class="ui-block-a">
         <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
             <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> <span> 평균 온도 </span> </li>
@@ -62,22 +68,12 @@
             <li class="ui-listview  center" id="avrHumi"> Wait... </li>
         </ul>
     </div>
-</div>
-<div class="ui-grid-a">
-    <div class="ui-block-a">
-        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center" > <span> 현재 조도  [ Lux ] </span> </li>
-            <li class="ui-li  ui-listview center"><span id="illumi"> Wait... </span> </li>
-        </ul>
-    </div>
-    <div class="ui-block-b">
+    <div class="ui-block-c">
         <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
             <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  밝기 정도 </li>
             <li class="ui-listview  center" id="illumi_digital"> Wait... </li>
         </ul>
     </div>
-</div>
-<div class="ui-grid-a">
     <div class="ui-block-a">
         <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
             <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center" > <span> TDS 농도  [ ppm ] </span> </li>
@@ -85,63 +81,40 @@
         </ul>
     </div>
     <div class="ui-block-b">
-
-    </div>
-</div>
-<div class="ui-grid-a">
-    <div class="ui-block-a">
         <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
             <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center" > <span> CO2 [ ppm ] </span> </li>
             <li class="ui-li  ui-listview center" id="co2"> Wait...  </li>
         </ul>
     </div>
-    <div class="ui-block-b">
+    <div class="ui-block-c">
         <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
             <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  CO2 sensor status </li>
             <li class="ui-listview  center" id="co2_status"> Wait... </li>
         </ul>
     </div>
 </div>
-<div class="ui-grid-a">
-    <div class="ui-block-a">
-        <label for="tempbox" > 설정 온도 입력 </label>
-        <input type="number" id="tempbox" value="">
-        <button id="button1" > 설정온도 전송 </button>
+<div class="ui-grid-b">
+    <div class="ui-block-a center">
+        <div class="ui-bar ui-bar-a" style="height:170px;"> </br>온도 설정
+            <input type="number" id="tempbox" value="">
+            <button id="button1" >설정온도 전송</button>
+        </div>
     </div>
+
     <div class="ui-block-b">
-        <button id="led-on" > LED ON </button>
-        <button id="led-off" > LED OFF </button>
-        <button id="led-auto" > LED AUTO </button>
+        <div class ="ui-bar ui-bar-a" style="height:170px">
+            <button id="led-auto" > LED AUTO </button>
+            <button id="led-on" > LED ON </button>
+            <button id="led-off" > LED OFF </button>
+        </div>
+    </div>
+    <div class="ui-block-c">
+        <div class ="ui-bar ui-bar-a" style="height:170px">
+            <button id="fan-on" > FAN ON </button>
+            <button id="fan-off" > FAN OFF </button>
+            <button id="fan-auto" > FAN AUTO </button>
+        </div>
     </div>
 </div>
-<div class="ui-grid-a">
-    <div class="ui-block-a">
-        <button id="fan-on" > FAN ON </button>
-        <button id="fan-off" > FAN OFF </button>
-        <button id="fan-auto" > FAN AUTO </button>
-    </div>
-</div>
-        <form>
-            <fieldset data-role="controlgroup" data-type="horizontal">
-                <legend>   LED 설정   </legend>
-                <input type="radio" name="led-status" id="led-auto-radio-btn" value="auto" checked="checked">
-                <label for="led-auto-radio-btn"> AUTO </label>
-                <input type="radio" name="led-status" id="led-on-radio-btn" value="on">
-                <label for="led-on-radio-btn"> ON </label>
-                <input type="radio" name="led-status" id="led-off-radio-btn" value="off">
-                <label for="led-off-radio-btn"> OFF </label>
-            </fieldset>
-        </form>
-<form>
-        <fieldset data-role="controlgroup" data-type="horizontal">
-            <legend>Horizontal:</legend>
-            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2a" value="on" checked="checked">
-            <label for="radio-choice-h-2a">One</label>
-            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2b" value="off">
-            <label for="radio-choice-h-2b">Two</label>
-            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2c" value="other">
-            <label for="radio-choice-h-2c">Three</label>
-        </fieldset>
-</form>
 </body>
 </html>

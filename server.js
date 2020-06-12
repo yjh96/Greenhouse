@@ -33,7 +33,16 @@ app.post('/temp_set', function(req,res){
     console.log("catch POST from client!");
     var target_command = req.body.command;
     var target_device = req.body.device;
-    console.log(command);
+    console.log(target_command);
+    SendMessage.C2D_MESSAGE(target_device,target_command);
+    res.json({ok:true});
+});
+
+app.post('/humi_set', function(req,res){
+    console.log("catch POST from client!");
+    var target_command = req.body.command;
+    var target_device = req.body.device;
+    console.log(target_command);
     SendMessage.C2D_MESSAGE(target_device,target_command);
     res.json({ok:true});
 });
