@@ -1,12 +1,10 @@
-  // Example testing sketch for various DHT humidity/temperature sensors
-// Written by ladyada, public domain
+//Sensor Library
 #include "DHT.h"
-
 #include <Wire.h>
 #include <BH1750FVI.h>
-
 #include <cm1106_i2c.h>
 
+//Pin Settings
 #define DHTPIN 8     // what pin we're connected to
 #define CDSDIGITAL 7
 #define CDSANALOG A0
@@ -17,8 +15,8 @@
 //I2C 모듈
 BH1750FVI::eDeviceMode_t DEVICEMODE = BH1750FVI::k_DevModeContHighRes;
 BH1750FVI LightSensor(DEVICEMODE );
-CM1106_I2C cm1106_i2c;
 
+CM1106_I2C cm1106_i2c;
 #define TdsSensorPin A1
 #define VREF 5.0      // analog reference voltage(Volt) of the ADC
 #define SCOUNT  30           // sum of sample point
@@ -27,8 +25,7 @@ int analogBufferTemp[SCOUNT];
 int analogBufferIndex = 0,copyIndex = 0;
 float averageVoltage = 0,tdsValue = 0,temperature = 25;
 
-
-
+//Timer
 extern volatile unsigned long timer0_millis;
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -39,8 +36,8 @@ signed int LED_FORCE = 0;
 signed int LED_AUTO = 1;
 signed int FAN_FORCE = 0;
 signed int FAN_AUTO = 1;
-
-
+float command_temp = 24.00;
+float command_humi = 60.00;
 
 int getMedianNum(int bArray[], int iFilterLen) 
 {
@@ -68,14 +65,18 @@ int getMedianNum(int bArray[], int iFilterLen)
 }
 
 void setup() {
+  
   Serial.begin(115200);
   Serial3.begin(115200);
-  dht.begin();
-  LightSensor.begin();  
+  
   pinMode(LED_RELAY, OUTPUT);
   pinMode(FAN_RELAY, OUTPUT);
   pinMode(TdsSensorPin,INPUT);
+
+  dht.begin();
+  LightSensor.begin();  
   cm1106_i2c.begin();
+  
 }
 
 void loop() {
@@ -97,7 +98,12 @@ void loop() {
     char co2_temp[16];
     int co2_status;
     char co2_status_temp[16];
-  
+    int led_status;
+    int fan_status;
+    char led_status_temp[16];
+    char fan_status_temp[16];
+    char command_temp_temp[16];
+
   // TDS
     
   static unsigned long analogSampleTimepoint = millis();
@@ -119,12 +125,6 @@ void loop() {
       float compensationCoefficient=1.0+0.02*(temperature-25.0);    //temperature compensation formula: fFinalResult(25^C) = fFinalResult(current)/(1.0+0.02*(fTP-25.0));
       float compensationVolatge=averageVoltage/compensationCoefficient;  //temperature compensation
       tdsValue=(133.42*compensationVolatge*compensationVolatge*compensationVolatge - 255.86*compensationVolatge*compensationVolatge + 857.39*compensationVolatge)*0.5; //convert voltage value to tds value
-      //Serial.print("voltage:");
-      //Serial.print(averageVoltage,2);
-      //Serial.print("V   ");
-      Serial.print("TDS Value:");
-      Serial.print(tdsValue,0);
-      Serial.println("ppm");
    }
 
    // CO2
@@ -161,44 +161,50 @@ void loop() {
     if(digitalRead(CDSDIGITAL) == HIGH){
       digitalWrite(LED_RELAY,LOW);
       cds_digital = 0;
+      led_status = 1;
     }
     else if (digitalRead(CDSDIGITAL)==LOW){
       digitalWrite(LED_RELAY,HIGH);
       cds_digital = 1;
+      led_status = 0;
     }
    }
     else if (LED_AUTO == 0 ){
       if(LED_FORCE == 1){
           digitalWrite(LED_RELAY,LOW);
+          led_status = 1;
       }
       else if (LED_FORCE == 0){
         digitalWrite(LED_RELAY,HIGH);
+        led_status = 0;
       }
    }
 
    //FAN
 
    if(FAN_AUTO == 1){
-    if(co2 >= 800){
+    if(co2 >= 800 || t > command_temp){
       digitalWrite(FAN_RELAY,LOW);
-    //fan status 추가요망
+      fan_status = 1;
     }
     else {
       digitalWrite(FAN_RELAY,HIGH);
-
+      fan_status = 0;
     }
    }
     else if (FAN_AUTO == 0 ){
       if(FAN_FORCE == 1){
           digitalWrite(FAN_RELAY,LOW);
+          fan_status = 1;
       }
       else if (FAN_FORCE == 0){
         digitalWrite(FAN_RELAY,HIGH);
+        fan_status = 0;
       }
    }
 
 
-    if(Serial3.available()){
+    if(Serial3.available() > 0){
       String text = Serial3.readStringUntil('\n');
       Serial.println(text);
       if(text == "LED_ON" ) {
@@ -249,6 +255,22 @@ void loop() {
           Serial.print(" AUTO : ");
           Serial.println(FAN_AUTO);
       }
+      else if (text.startsWith("T&")){
+        Serial.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        int check = text.indexOf("&");
+        String check_temp = text.substring(check+1,text.length());
+        Serial.println(check_temp);
+        command_temp = check_temp.toFloat();
+        Serial.println(command_temp);
+      }
+      else if (text.startsWith("H&")){
+          Serial.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+          int check = text.indexOf("&");
+          String check_humi = text.substring(check+1,text.length());
+          Serial.println(check_humi);
+          command_humi = check_humi.toFloat();
+          Serial.println(command_humi);
+      }
     }
 
     if (currentMillis - previousMillis > delayTime) {
@@ -260,12 +282,16 @@ void loop() {
         dtostrf(tdsValue, 4,0, tds_temp);
         dtostrf(co2, 4,0, co2_temp);
         dtostrf(co2_status, 1,0, co2_status_temp);
+        dtostrf(fan_status, 1,0, fan_status_temp);
+        dtostrf(led_status, 1,0, led_status_temp);
+        dtostrf(command_temp, 4,2, command_temp_temp);
+
         // temp & humidity & lux & cds_digital & tds & co2 & co2_status
-        sprintf(data, " %s&%s&%s&%s&%s&%s&%s\n",
-        tt_tmp, hh_tmp, cds_analog_tmp, cds_digital_tmp, tds_temp, co2_temp, co2_status_temp);
+        sprintf(data, " %s&%s&%s&%s&%s&%s&%s&%s&%s&%s\n",
+        tt_tmp, hh_tmp, cds_analog_tmp, cds_digital_tmp, tds_temp, co2_temp, co2_status_temp, fan_status_temp, led_status_temp, command_temp_temp);
 
         
-        Serial.print(data);
+        //Serial.print(data);
         Serial3.write(data);
         timer0_millis = 0;
     }

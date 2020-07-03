@@ -27,7 +27,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b734a44-35d9-40d9-a207-2b33bbea4e2a" name="기본 변경 목록" comment="LED REMOTE 완성">
+    <list default="true" id="8b734a44-35d9-40d9-a207-2b33bbea4e2a" name="기본 변경 목록" comment="FAN REMOTE 완성">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DHTtester.ino" beforeDir="false" afterPath="$PROJECT_DIR$/DHTtester.ino" afterDir="false" />
     </list>
@@ -74,6 +74,13 @@
       <workItem from="1590647131730" duration="5954000" />
       <workItem from="1590721788000" duration="1223000" />
       <workItem from="1590979359101" duration="2095000" />
+      <workItem from="1591588110961" duration="400000" />
+      <workItem from="1591890124680" duration="3046000" />
+      <workItem from="1591937938851" duration="2269000" />
+      <workItem from="1592559831470" duration="248000" />
+      <workItem from="1592741070860" duration="1182000" />
+      <workItem from="1593241614816" duration="2000" />
+      <workItem from="1593765958409" duration="3490000" />
     </task>
     <task id="LOCAL-00001" summary="LED Remote 추가">
       <created>1590653396347</created>
@@ -89,7 +96,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590655700136</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="FAN REMOTE 완성">
+      <created>1591588119562</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1591588119562</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,13 +124,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="LED Remote 추가" />
     <MESSAGE value="LED REMOTE 완성" />
-    <option name="LAST_COMMIT_MESSAGE" value="LED REMOTE 완성" />
+    <MESSAGE value="FAN REMOTE 완성" />
+    <option name="LAST_COMMIT_MESSAGE" value="FAN REMOTE 완성" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1590655704398">
+    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1591588122425">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590655704398" />
+    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1591588122425" />
     <state x="581" y="310" width="507" height="209" key="circlet.vcs.share.CircletShareProjectDialog" timestamp="1589259991243">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
