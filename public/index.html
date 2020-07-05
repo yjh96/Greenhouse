@@ -39,8 +39,8 @@
 </h3>
 <div class="ui-grid-b">
     <div class="ui-block-a">
-        <ul data-role="listview" data-inset="true" data-divider-theme="b" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child " data-divider-theme="b"> <span> 현재 온도 </span> </li>
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child " > <span> 현재 온도 </span> </li>
             <li class="ui-li  ui-listview center"><span id="temperature"> Wait... </span> </li>
         </ul>
     </div>
@@ -92,6 +92,21 @@
             <li class="ui-listview  center" id="co2_status"> Wait... </li>
         </ul>
     </div>
+    <div class="ui-block-a">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  Fan status </li>
+            <li class="ui-listview  center" id="fan_box"> Wait... </li>
+    </div>
+    <div class="ui-block-b">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  LED status </li>
+            <li class="ui-listview  center" id="led_box"> Wait... </li>
+    </div>
+    <div class="ui-block-c">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  설정 온도 </li>
+            <li class="ui-listview  center" id="temp_box"> Wait... </li>
+    </div>
 </div>
 <div class="ui-grid-b">
     <div class="ui-block-a center">
@@ -103,9 +118,9 @@
 
     <div class="ui-block-b">
         <div class ="ui-bar ui-bar-a" style="height:170px">
-            <button id="led-auto" > LED AUTO </button>
             <button id="led-on" > LED ON </button>
             <button id="led-off" > LED OFF </button>
+            <button id="led-auto" > LED AUTO </button>
         </div>
     </div>
     <div class="ui-block-c">

@@ -10,11 +10,4 @@ function C2D_MESSAGE(DeviceID, Message) {
     var message = Message;
     serviceClient.send(deviceId, message);
 }
-
-function C2D_MESSAGE_TEST() {
-    var a = 'Test';
-    var b = 'Hello';
-    serviceClient.send(a, b);
-}
-
 module.exports = { C2D_MESSAGE }

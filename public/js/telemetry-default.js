@@ -20,7 +20,9 @@ $(document).ready(() => {
             this.tds_Data;
             this.co2;
             this.co2_status;
-
+            this.fan_status;
+            this.led_status;
+            this.command_temp;
         }
 
         addData(time,
@@ -30,7 +32,10 @@ $(document).ready(() => {
                 illumi_digital,
                 tdsData,
                 co2_data,
-                co2_status_data)
+                co2_status_data,
+                fan_stat,
+                led_stat,
+                command_temp_stat)
         {
             this.timeData.push(time);
             this.temperatureData.push(temperature);
@@ -42,6 +47,9 @@ $(document).ready(() => {
             this.tds_Data = tdsData;
             this.co2_value = co2_data;
             this.co2_status = co2_status_data;
+            this.fan_status = fan_stat;
+            this.led_status = led_stat;
+            this.command_temp = command_temp_stat;
 
 
             if (this.timeData.length > this.maxLen) {
@@ -55,6 +63,9 @@ $(document).ready(() => {
                 this.tds_Data = tdsData;
                 this.co2_value = co2_data;
                 this.co2_status = co2_status_data;
+                this.fan_status = fan_stat;
+                this.led_status = led_stat;
+                this.command_temp = command_temp_stat;
             }
         }
     }
@@ -143,6 +154,17 @@ $(document).ready(() => {
         illumi_digital_box.innerText = illumi_digital_data === 1 ? `밝음` : `어두움`;
     }
 
+    function device_status(){
+        const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
+        const led = device.led_status;
+        const fan = device.fan_status;
+        const temp = device.command_temp;
+        fan_box.innerText = fan === 1 ? `ON` : `OFF`;
+        led_box.innerText = led === 1 ? `ON` : `OFF`;
+        temp_box.innerText = temp;
+
+    }
+
     // Manage a list of devices in the UI, and update which device data the chart is showing
     // based on selection
     //let needsAutoSelect = false;
@@ -160,9 +182,11 @@ $(document).ready(() => {
     const button_temp = document.getElementById("button1");
     const control_temp = document.getElementById("tempbox");
     const tds = document.getElementById("tds");
-
     const co2 = document.getElementById("co2");
     const co2_status = document.getElementById("co2_status");
+    const led_box = document.getElementById("led_box");
+    const fan_box = document.getElementById("fan_box");
+    const temp_box = document.getElementById("temp_box");
 
     // LED 컨트롤 - 버튼
     const control_led_on = document.getElementById("led-on");
@@ -301,6 +325,9 @@ $(document).ready(() => {
             messageData.IotData.tdsData = messageData.IotData.detail[4];
             messageData.IotData.co2_data = messageData.IotData.detail[5];
             messageData.IotData.co2_status_data = messageData.IotData.detail[6];
+            messageData.IotData.fan_stat = messageData.IotData.detail[7];
+            messageData.IotData.led_stat = messageData.IotData.detail[8];
+            messageData.IotData.command_temp_stat = messageData.IotData.detail[9];
 
             messageData.IotData.temperature *= 1;
             messageData.IotData.humidity *= 1;
@@ -309,7 +336,9 @@ $(document).ready(() => {
             messageData.IotData.tdsData *= 1;
             messageData.IotData.co2_data *= 1;
             messageData.IotData.co2_status_data *= 1;
-
+            messageData.IotData.fan_stat *= 1;
+            messageData.IotData.led_stat *= 1;
+            messageData.IotData.command_temp_stat *= 1;
 
             // time and either temperature or humidity are required
             if (!messageData.MessageDate || (!messageData.IotData.temperature && !messageData.IotData.humidity)) {
@@ -328,7 +357,10 @@ $(document).ready(() => {
                     messageData.IotData.illumi_digital,
                     messageData.IotData.tdsData,
                     messageData.IotData.co2_data,
-                    messageData.IotData.co2_status_data
+                    messageData.IotData.co2_status_data,
+                    messageData.IotData.fan_stat,
+                    messageData.IotData.led_stat,
+                    messageData.IotData.command_temp_stat
                 );
 
             } else {
@@ -344,7 +376,10 @@ $(document).ready(() => {
                     messageData.IotData.illumi_digital,
                     messageData.IotData.tdsData,
                     messageData.IotData.co2_data,
-                    messageData.IotData.co2_status_data
+                    messageData.IotData.co2_status_data,
+                    messageData.IotData.fan_stat,
+                    messageData.IotData.led_stat,
+                    messageData.IotData.command_temp_stat
                 );
 
                 // add device to the UI list
@@ -366,6 +401,7 @@ $(document).ready(() => {
             illumifunc();
             tdsData();
             CO2();
+            device_status();
 
         } catch (err) {
             console.error(err);
