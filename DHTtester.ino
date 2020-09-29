@@ -204,7 +204,7 @@ void loop() {
    }
 
 
-    if(Serial3.available() > 0){
+    do{
       String text = Serial3.readStringUntil('\n');
       Serial.println(text);
       if(text == "LED_ON" ) {
@@ -256,7 +256,6 @@ void loop() {
           Serial.println(FAN_AUTO);
       }
       else if (text.startsWith("T&")){
-        Serial.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         int check = text.indexOf("&");
         String check_temp = text.substring(check+1,text.length());
         Serial.println(check_temp);
@@ -264,7 +263,6 @@ void loop() {
         Serial.println(command_temp);
       }
       else if (text.startsWith("H&")){
-          Serial.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
           int check = text.indexOf("&");
           String check_humi = text.substring(check+1,text.length());
           Serial.println(check_humi);
@@ -287,11 +285,18 @@ void loop() {
         dtostrf(command_temp, 4,2, command_temp_temp);
 
         // temp & humidity & lux & cds_digital & tds & co2 & co2_status
-        sprintf(data, " %s&%s&%s&%s&%s&%s&%s&%s&%s&%s\n",
-        tt_tmp, hh_tmp, cds_analog_tmp, cds_digital_tmp, tds_temp, co2_temp, co2_status_temp, fan_status_temp, led_status_temp, command_temp_temp);
+        sprintf(data, " %s&%s&%s&%s&%s&%s&%s&%s&%s&%s!",
+                tt_tmp,
+                hh_tmp,
+                cds_analog_tmp,
+                cds_digital_tmp,
+                tds_temp,
+                co2_temp,
+                co2_status_temp,
+                fan_status_temp,
+                led_status_temp,
+                command_temp_temp);
 
-        
-        //Serial.print(data);
         Serial3.write(data);
         timer0_millis = 0;
     }
