@@ -88,6 +88,12 @@ app.post('/fan_auto',function(req,res){
     res.json({ok:true});
 });
 
+app.post('/photo', function(req,res){
+    console.log("POST Client -> New Photo");
+    SendMessage.C2D_MESSAGE('Camera',"Photo");
+    res.json({ok:true});
+});
+
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 

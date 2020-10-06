@@ -4,7 +4,6 @@ $(document).ready(() => {
     const protocol = document.location.protocol.startsWith('https') ? 'wss://' : 'ws://';
     const webSocket = new WebSocket(protocol + location.host);
 
-
     // A class for holding the last N points of telemetry for a device
     class DeviceData {
         constructor(deviceId) {
@@ -18,7 +17,7 @@ $(document).ready(() => {
             this.illuminance;
             this.illuminance_digital;
             this.tds_Data;
-            this.co2;
+            this.co2_value;
             this.co2_status;
             this.fan_status;
             this.led_status;
@@ -149,7 +148,6 @@ $(document).ready(() => {
         const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
         const illumi_data = device.illuminance;
         const illumi_digital_data = device.illuminance_digital;
-        console.log(illumi_digital_data);
         illumi_box.innerText = `${illumi_data}`;
         illumi_digital_box.innerText = illumi_digital_data === 1 ? `밝음` : `어두움`;
     }
@@ -162,8 +160,13 @@ $(document).ready(() => {
         fan_box.innerText = fan === 1 ? `ON` : `OFF`;
         led_box.innerText = led === 1 ? `ON` : `OFF`;
         temp_box.innerText = temp;
-
+        let time = new Date(device.timeData[9]);
+        let current = new Date();
+        const delay = time.getSeconds() - current.getSeconds();
+        time_box.innerText = "최근 송신 시간 : " + time.toLocaleString();// + "    " + delay + "초 전 업데이트";
     }
+
+
 
     // Manage a list of devices in the UI, and update which device data the chart is showing
     // based on selection
@@ -187,6 +190,7 @@ $(document).ready(() => {
     const led_box = document.getElementById("led_box");
     const fan_box = document.getElementById("fan_box");
     const temp_box = document.getElementById("temp_box");
+    const time_box = document.getElementById("time");
 
     // LED 컨트롤 - 버튼
     const control_led_on = document.getElementById("led-on");
@@ -197,6 +201,9 @@ $(document).ready(() => {
     const control_fan_on = document.getElementById("fan-on");
     const control_fan_off = document.getElementById("fan-off");
     const control_fan_auto = document.getElementById("fan-auto");
+
+    // 카메라
+    const contorl_camera = document.getElementById("camera");
 
     function OnSelectionChange() {
         const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
@@ -304,6 +311,24 @@ $(document).ready(() => {
         });
     }
 
+    contorl_camera.addEventListener('click',PHOTO,false);
+    function PHOTO () {
+        $.ajax({
+            url : "/photo",
+            type : 'POST',
+            success : function(req,res){
+                console.log("Success Post to server >>PHOTO<<");
+                setTimeout(function(){
+                    $('#photo-upload').attr('src','https://storageaccountstudyb43c.blob.core.windows.net/camera/Test/photo.jpg?' + new Date().getTime());
+                    console.log("reload");
+                },5000);
+            }
+        });
+    }
+
+
+
+
     // When a web socket message arrives:
     // 1. Unpack it
     // 2. Validate it has date/time and temperature
@@ -340,10 +365,11 @@ $(document).ready(() => {
             messageData.IotData.led_stat *= 1;
             messageData.IotData.command_temp_stat *= 1;
 
-            // time and either temperature or humidity are required
+            /** time and either temperature or humidity are required
             if (!messageData.MessageDate || (!messageData.IotData.temperature && !messageData.IotData.humidity)) {
                 return;
             }
+             */
 
             // find or add device to list of tracked devices
             const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
@@ -402,7 +428,6 @@ $(document).ready(() => {
             tdsData();
             CO2();
             device_status();
-
         } catch (err) {
             console.error(err);
         }
