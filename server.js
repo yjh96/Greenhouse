@@ -21,14 +21,14 @@ if (!eventHubConsumerGroup) {
 }
 console.log(`Using event hub consumer group [${eventHubConsumerGroup}]`);
 
-// Redirect requests to the public subdirectory to the root
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-//post 수신 시 일괄 검출. URL 통일 시 간결화 가능. ex> /func로 한번에 수신한다던지...
+
 app.post('/temp_set', function(req,res){
     console.log("catch POST from client!");
     var target_command = req.body.command;

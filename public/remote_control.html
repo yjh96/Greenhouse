@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="css/themes/greenhouse.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/telemetry-remote.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
+
+
+    <title style="left: 40px">스마트 온실 실시간 데이터 현황</title>
+
+</head>
+
+
+<body>
+<div data-role="header" data-position="fixed" class="center" >
+    <h2>공주대학교 전파공학전공 스마트온실</h2>
+</div>
+<h2 class="flexHeader">
+    <form>
+        <div class="ui-field-contain" style="margin: 0 auto;width: 70%">
+            <label class="center" for="listOfDevices" style="font-size : 0.8em; margin-top: 20px;   "> 온실명 : </label>
+            <div class="ui-select">
+                <select name="select-native-1" id="listOfDevices">
+                    <option> 온실 선택 </option>
+                </select>
+            </div>
+        </div>
+    </form>
+</h2>
+
+<div class="ui-grid-b">
+    <div class="ui-block-a">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  Fan status </li>
+            <li class="ui-listview  center" id="fan_box"> Wait... </li>
+    </div>
+    <div class="ui-block-b">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  LED status </li>
+            <li class="ui-listview  center" id="led_box"> Wait... </li>
+    </div>
+    <div class="ui-block-c">
+        <ul data-role="listview" data-inset="true" data-divider-theme="a" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">  설정 온도 </li>
+            <li class="ui-listview  center" id="temp_box"> Wait... </li>
+    </div>
+    <div class="ui-block-a center">
+
+        <div class="ui-bar ui-bar-a" style="height:170px;"> </br>온도 설정
+            <input type="number" id="tempbox" value="">
+            <button id="button1" >설정온도 전송</button>
+        </div>
+    </div>
+
+    <div class="ui-block-b">
+        <div class ="ui-bar ui-bar-a" style="height:170px">
+            <button id="led-on" > LED ON </button>
+            <button id="led-off" > LED OFF </button>
+            <button id="led-auto" > LED AUTO </button>
+        </div>
+    </div>
+    <div class="ui-block-c">
+        <div class ="ui-bar ui-bar-a" style="height:170px">
+            <button id="fan-on" > FAN ON </button>
+            <button id="fan-off" > FAN OFF </button>
+            <button id="fan-auto" > FAN AUTO </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
