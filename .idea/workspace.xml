@@ -23,13 +23,12 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b734a44-35d9-40d9-a207-2b33bbea4e2a" name="기본 변경 목록" comment="FAN REMOTE 완성">
+    <list default="true" id="8b734a44-35d9-40d9-a207-2b33bbea4e2a" name="기본 변경 목록" comment="불필요 파일 제거 - 최종 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DHTtester.ino" beforeDir="false" afterPath="$PROJECT_DIR$/DHTtester.ino" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +40,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="ProjectId" id="1bnFIewdo1vx5ad4zGTpDMTwSMK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -55,6 +55,14 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -83,7 +91,11 @@
       <workItem from="1593765958409" duration="3490000" />
       <workItem from="1594091320240" duration="3899000" />
       <workItem from="1595418963271" duration="4000" />
-      <workItem from="1601392692233" duration="335000" />
+      <workItem from="1601392692233" duration="1516000" />
+      <workItem from="1603862011381" duration="2585000" />
+      <workItem from="1603866235187" duration="879000" />
+      <workItem from="1607778033896" duration="811000" />
+      <workItem from="1609244147958" duration="1765000" />
     </task>
     <task id="LOCAL-00001" summary="LED Remote 추가">
       <created>1590653396347</created>
@@ -106,18 +118,52 @@
       <option name="project" value="LOCAL" />
       <updated>1591588119562</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="v0.20.9.30">
+      <created>1601393111860</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1601393111860</updated>
+    </task>
+    <task id="LOCAL-00005" summary="v0.20.9.30">
+      <created>1601393128088</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1601393128088</updated>
+    </task>
+    <task id="LOCAL-00006" summary="v0.20.9.30">
+      <created>1601393152252</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1601393152252</updated>
+    </task>
+    <task id="LOCAL-00007" summary="최종 제출">
+      <created>1609244200665</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1609244200665</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -128,20 +174,11 @@
     <MESSAGE value="LED Remote 추가" />
     <MESSAGE value="LED REMOTE 완성" />
     <MESSAGE value="FAN REMOTE 완성" />
-    <option name="LAST_COMMIT_MESSAGE" value="FAN REMOTE 완성" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="360" y="25" key="#C/C++" timestamp="1601392716428">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="360" y="25" key="#C/C++/0.0.1536.824/1920.-1.1920.1040@0.0.1536.824" timestamp="1601392716428" />
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2" timestamp="1601392770732">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="141" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.-1.1920.1040@0.0.1536.824" timestamp="1601392770732" />
-    <state x="571" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601392705541">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="571" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/1920.-1.1920.1040@0.0.1536.824" timestamp="1601392705541" />
+    <MESSAGE value="v0.20.9.30 코드수정 시작" />
+    <MESSAGE value="v0.20.9.30" />
+    <MESSAGE value="최종 제출" />
+    <MESSAGE value="불필요 파일 제거 - 최종 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="불필요 파일 제거 - 최종 수정" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
