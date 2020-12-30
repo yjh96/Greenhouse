@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="css/themes/greenhouse.css"/>
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css"/>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/telemetry-default.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
+
+    <title> 📋 스마트 온실 실시간 데이터 </title>
+</head>
+
+<body>
+<div data-role="page" id="main">
+    <div data-role="header" data-position="fixed" class="center">
+        <h2>공주대학교 전파공학전공 스마트온실</h2>
+<!--        <a href="/camera.html"  class="ui-btn-left"  style="margin-top: 12px">Camera</a>-->
+        <span id="deviceCount"
+              style=" text-align: center; width: 32px "> 📡 Can't communicate with Cloud server 📡 </span>
+    </div>
+    <div>
+        <h2 class="flexHeader">
+            <form>
+                <div class="ui-field-contain" style="margin: 0 auto;width: 70%">
+                    <label class="center" for="listOfDevices" style="font-size : 0.8em; margin-top: 20px;   "> 온실명
+                        : </label>
+                    <div class="ui-select">
+                        <select name="select-native-1" id="listOfDevices">
+                            <option> 온실 선택</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </h2>
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <h3 class="left">스마트 온실 실시간 데이터 현황</h3>
+            </div>
+            <div class="ui-block-b">
+                <h3 id="time" style="text-align:right;"></h3>
+            </div>
+        </div>
+        <div class="ui-grid-b" style="margin-right: 20px; margin-left: 20px">
+            <div class="ui-block-a">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child ">
+                        <span> 현재 온도 </span></li>
+                    <li class="ui-li  ui-listview center"><span id="temperature"> Wait... </span></li>
+                </ul>
+            </div>
+            <div class="ui-block-b">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> 현재 습도</li>
+                    <li class="ui-listview  center" id="humidity"> Wait...</li>
+                </ul>
+            </div>
+            <div class="ui-block-c">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"><span> 현재 조도  [ Lux ] </span>
+                    </li>
+                    <li class="ui-li  ui-listview center"><span id="illumi"> Wait... </span></li>
+                </ul>
+            </div>
+            <div class="ui-block-a">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center">
+                        <span> 평균 온도 </span></li>
+                    <li class="ui-li  ui-listview center"><span id="avrTemp"> Wait... </span></li>
+                </ul>
+            </div>
+            <div class="ui-block-b">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> 평균 습도</li>
+                    <li class="ui-listview  center" id="avrHumi"> Wait...</li>
+                </ul>
+            </div>
+            <div class="ui-block-c">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> 밝기 정도</li>
+                    <li class="ui-listview  center" id="illumi_digital"> Wait...</li>
+                </ul>
+            </div>
+            <div class="ui-block-a">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"><span> TDS 농도  [ ppm ] </span>
+                    </li>
+                    <li class="ui-li  ui-listview center" id="tds"> Wait...</li>
+                </ul>
+            </div>
+            <div class="ui-block-b">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"><span> CO2 [ ppm ] </span>
+                    </li>
+                    <li class="ui-li  ui-listview center" id="co2"> Wait...</li>
+                </ul>
+            </div>
+            <div class="ui-block-c">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> CO2 sensor
+                        status
+                    </li>
+                    <li class="ui-listview  center" id="co2_status"> Wait...</li>
+                </ul>
+            </div>
+            <div class="ui-block-a">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> Fan
+                        status
+                    </li>
+                    <li class="ui-listview  center" id="fan_box"> Wait...</li>
+                </ul>
+            </div>
+            <div class="ui-block-b">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> LED
+                        status
+                    </li>
+                    <li class="ui-listview  center" id="led_box"> Wait...</li>
+                </ul>
+            </div>
+            <div class="ui-block-c">
+                <ul data-role="listview" data-inset="true" data-divider-theme="a"
+                    class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                    <li data-role="list-divider" class="ui-li-divider ui-bar-a ui-li ui-first-child center"> 설정 온도</li>
+                    <li class="ui-listview  center" id="temp_box"> Wait...</li>
+                </ul>
+            </div>
+        </div>
+        <div class="ui-grid-b">
+            <div class="ui-block-a center">
+                <div class="ui-bar ui-bar-a" style="height:170px;"> </br>온도 설정
+                    <input type="number" id="tempbox" value="">
+                    <button id="button1">설정온도 전송</button>
+                </div>
+            </div>
+
+            <div class="ui-block-b">
+                <div class="ui-bar ui-bar-a" style="height:170px">
+                    <button id="led-on"> LED ON</button>
+                    <button id="led-off"> LED OFF</button>
+                    <button id="led-auto"> LED AUTO</button>
+                </div>
+            </div>
+            <div class="ui-block-c">
+                <div class="ui-bar ui-bar-a" style="height:170px">
+                    <button id="fan-on"> FAN ON</button>
+                    <button id="fan-off"> FAN OFF</button>
+                    <button id="fan-auto"> FAN AUTO</button>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</div>
+</body>
+</html>
