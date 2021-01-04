@@ -26,5 +26,6 @@
 ## 모식도
  
 <img width="633" src="https://github.com/yjh96/Greenhouse/blob/master/image/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%EB%AA%A8%EC%8B%9D%EB%8F%84.png">
-
+* 온실 관리용 MCU는 Arduino와 RPi를 포함합니다.
+** 모든 클라우드 환경은 Microsoft Azure 를 활용했습니다.
 
