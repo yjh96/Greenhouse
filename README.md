@@ -32,5 +32,10 @@
 
 
 ## DEMO 영상
-
+  
 https://youtu.be/LpGDD1_s9WE
+  
+## 시연 현황
+  
+<img width="633" src="https://github.com/yjh96/Greenhouse/blob/master/image/1st%20demo.PNG">  
+<img width="633" src="https://github.com/yjh96/Greenhouse/blob/master/image/2nd%20demo.PNG">
