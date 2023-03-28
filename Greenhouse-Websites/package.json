@@ -30,6 +30,6 @@
     "ws": ">=7.4.6"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   }
 }
